@@ -1,6 +1,9 @@
 import { useCallback, useMemo, useRef, useState } from "react";
 
 import { InputLogin } from "./components/InputLogin";
+import { ButtonLogin } from "./components/ButtonLogin";
+import ButtonBack from "./components/ButtonBack";
+import { Link } from "react-router-dom";
 
 export const Login = () => {
   const inputPasswordRef = useRef<HTMLInputElement>(null);
@@ -10,13 +13,15 @@ export const Login = () => {
 
   const emailLength = useMemo(() => {
     console.log('Executou');
-    return email.length * 1000;
+    return email.length * 1;
   }, [email.length]);
 
   const handleEntrar = useCallback(() => {
     console.log(email);
     console.log(password);
   }, [email,password]);
+
+  
 
   return (
     <div>
@@ -38,11 +43,9 @@ export const Login = () => {
           onChange={newValue => setPassword(newValue)}
         />
 
-        <button type="button" onClick={handleEntrar}>
-          Entrar
-        </button>
-
-        <ButtonLogin />
+        <ButtonLogin type="button" onClick={handleEntrar} children={undefined} /> <br />
+        <Link to="cadastre-se">Cadastre-se</Link>    
+        <ButtonBack targetPage ="" />
       </form>
     </div>
   );

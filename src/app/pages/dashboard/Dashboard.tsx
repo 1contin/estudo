@@ -6,7 +6,7 @@ export const Dashboard = () => {
 
     return (
         <div>
-        <p>Dashboard</p>
+        <p>Pagina Inicial</p>
 
         <p>Contador: {counterRef.current}</p>
 
