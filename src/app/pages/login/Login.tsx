@@ -4,9 +4,12 @@ import { InputLogin } from "./components/InputLogin";
 import { ButtonLogin } from "./components/ButtonLogin";
 import ButtonBack from "./components/ButtonBack";
 import { Link } from "react-router-dom";
+import { useUsuarioLogado } from "../../shared/hooks";
 
 export const Login = () => {
   const inputPasswordRef = useRef<HTMLInputElement>(null);
+
+  const { nomeDoUsuario } = useUsuarioLogado();
 
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -27,6 +30,7 @@ export const Login = () => {
     <div>
       <form>
         <p>Quantidade de caracteres no email: {emailLength}</p>
+        <p>{nomeDoUsuario}</p>
 
         <InputLogin
           label="Email"
@@ -43,8 +47,8 @@ export const Login = () => {
           onChange={newValue => setPassword(newValue)}
         />
 
-        <ButtonLogin type="button" onClick={handleEntrar} children={undefined} /> <br />
-        <Link to="cadastre-se">Cadastre-se</Link>    
+        <ButtonLogin type="button" onClick={handleEntrar} children={undefined} /> 
+        <Link to="cadastre-se">Cadastre-se</Link><br />
         <ButtonBack targetPage ="" />
       </form>
     </div>

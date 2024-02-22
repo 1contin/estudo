@@ -6,7 +6,7 @@ export const SignUp = () => {
         <div>
             <form>
             <p>Cadastre-se</p>
-            <ButtonBack targetPage ="Voltar" />
+            <ButtonBack targetPage ="" />
             </form>
         </div>
     );
