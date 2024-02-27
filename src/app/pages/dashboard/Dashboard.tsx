@@ -1,70 +1,74 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react'
 
-interface IListItem {
-    title: string;
-    isSelected: boolean;
+interface ITarefa {
+  id: number
+  title: string
+  isCompleted: boolean
 }
 
 export const Dashboard = () => {
-    const [lista, setLista] = useState<IListItem[]>([]);
+  const [lista, setLista] = useState<ITarefa[]>([])
 
-    const handleInputKeyDown: React.KeyboardEventHandler<HTMLInputElement> = useCallback((e) => {
-        if (e.key === 'Enter') {
-            if (e.currentTarget.value.length === 0) return;
-            if (e.currentTarget.value.trim().length === 0) return;
+  const handleInputKeyDown: React.KeyboardEventHandler<HTMLInputElement> =
+    useCallback((e) => {
+      if (e.key === 'Enter') {
+        if (e.currentTarget.value.length === 0) return
+        if (e.currentTarget.value.trim().length === 0) return
 
-            const value = e.currentTarget.value;
-            e.currentTarget.value = '';
+        const value = e.currentTarget.value
+        e.currentTarget.value = ''
 
-            setLista((oldLista) => {
-                if (oldLista.some((ListItem) => ListItem.title === value)) return oldLista;
+        setLista((oldLista) => {
+          if (oldLista.some((ListItem) => ListItem.title === value))
+            return oldLista
 
-                return [
-                    ...oldLista,
-                    {
-                        title: value,
-                        isSelected: false,
-                    },
-                ];
-            });
-        }
-    }, []);
+          return [
+            ...oldLista,
+            {
+              title: value,
+              isCompleted: false,
+              id: oldLista.length,
+            },
+          ]
+        })
+      }
+    }, [])
 
-    return (
-        <div>
-            <p>Lista</p>
+  return (
+    <div>
+      <p>Lista</p>
 
-            <input onKeyDown={handleInputKeyDown} />
+      <input onKeyDown={handleInputKeyDown} />
 
-            <p>{lista.filter((listItem) => listItem.isSelected).length} </p>
+      <p>{lista.filter((listItem) => listItem.isCompleted).length} </p>
 
-            <ul>
-                {lista.map((ListItem) => {
-                    return (
-                        <li key={ListItem.title}>
-                            <input
-                                type="checkbox"
-                                checked={ListItem.isSelected}
-                                onChange={() => {
-                                    setLista((oldLista) =>
-                                        oldLista.map((oldListItem) => {
-                                            const newIsSelected =
-                                                oldListItem.title === ListItem.title
-                                                    ? !oldListItem.isSelected
-                                                    : oldListItem.isSelected;
-                                            return {
-                                                ...oldListItem,
-                                                isSelected: newIsSelected,
-                                            };
-                                        })
-                                    );
-                                }}
-                            />
-                            {ListItem.title}
-                        </li>
-                    );
-                })}
-            </ul>
-        </div>
-    );
-};
+      <ul>
+        {lista.map((ListItem) => {
+          return (
+            <li key={ListItem.id}>
+              <input
+                type="checkbox"
+                checked={ListItem.isCompleted}
+                onChange={() => {
+                  setLista((oldLista) =>
+                    oldLista.map((oldListItem) => {
+                      const newisCompleted =
+                        oldListItem.title === ListItem.title
+                          ? !oldListItem.isCompleted
+                          : oldListItem.isCompleted
+                      return {
+                        ...oldListItem,
+                        isCompleted: newisCompleted,
+                      }
+                    })
+                  )
+                }}
+              />
+              {ListItem.title}
+            </li>
+          )
+        })}
+      </ul>
+    </div>
+  )
+}
